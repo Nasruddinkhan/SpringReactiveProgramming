@@ -29,6 +29,7 @@ public class FluxAndMonoErrorTest {
 					.expectSubscription()
 					.expectNext("Q","W","E")
 					.expectError(RuntimeException.class)
+					//.expectNext("defult", "defult1")
 					.verify();
 	}
 
