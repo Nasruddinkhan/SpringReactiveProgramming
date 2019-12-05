@@ -17,7 +17,7 @@ import reactor.test.StepVerifier;
 public class FluxAndMonoErrorTest {
 
 	@Test
-	public void fluxErrorTest() {
+	public void fluxErrorResume() {
 		Flux<String> sFlux	= Flux.just("Q","W","E")
 							.concatWith(Flux.error(new RuntimeException("Exception occur")))
 							.concatWith(Flux.just("D"))
@@ -31,6 +31,47 @@ public class FluxAndMonoErrorTest {
 					.expectError(RuntimeException.class)
 					//.expectNext("defult", "defult1")
 					.verify();
+	}
+	@Test
+	public void fluxErrorReturnMap() {
+		Flux<String> sFlux	= Flux.just("Q","W","E")
+							.concatWith(Flux.error(new RuntimeException("Exception occur")))
+							.concatWith(Flux.just("D"))
+							.onErrorMap((e)->new CustumException(e));
+							
+		StepVerifier.create(sFlux.log())
+					.expectSubscription()
+					.expectNext("Q","W","E")
+					
+					.expectError(CustumException.class)
+					.verify();
+	}
+	@Test
+	public void fluxErrorReturnMapRetry() {
+		Flux<String> sFlux	= Flux.just("Q","W","E")
+							.concatWith(Flux.error(new RuntimeException("Exception occur")))
+							.concatWith(Flux.just("D"))
+							.onErrorMap((e)->new CustumException(e))
+							.retry();;
+		StepVerifier.create(sFlux.log())
+					.expectSubscription()
+					.expectNext("Q","W","E")
+					.expectNext("Q","W","E")
+					.expectError(CustumException.class)
+					.verify();
+	}
+	@Test
+	public void fluxErrorReturn() {
+		Flux<String> sFlux	= Flux.just("Q","W","E")
+							.concatWith(Flux.error(new RuntimeException("Exception occur")))
+							.concatWith(Flux.just("D"))
+							.onErrorReturn("default");
+		StepVerifier.create(sFlux.log())
+					.expectSubscription()
+					.expectNext("Q","W","E")
+					//.expectError(RuntimeException.class)
+					.expectNext("defult")
+					.verifyComplete();
 	}
 
 }
