@@ -60,7 +60,7 @@ public class FluxAndMonoFactoryTest {
 		Flux<Integer>	fluxRange = Flux.range(1, 3).log();
 		StepVerifier
 		.create(fluxRange)
-		.expectNext(1,2,3,4,5).verifyComplete();
+		.expectNext(1,2,3).verifyComplete();
 
 	}
 	
