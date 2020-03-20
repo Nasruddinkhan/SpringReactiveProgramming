@@ -10,10 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,11 +27,16 @@ import lombok.ToString;
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @ToString
 @Getter
 @Setter
 public class Item {
+	/**
+	 * @param id2
+	 * @param description2
+	 * @param price2
+	 */
+	
 	@Id
 	public String id;
 	public String description;
