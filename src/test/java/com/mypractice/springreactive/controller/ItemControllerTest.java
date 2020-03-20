@@ -5,6 +5,7 @@
  */
 package com.mypractice.springreactive.controller;
 
+import static com.mypractice.springreactive.cons.ItemConstant.GET_ALL_ITEM;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -19,7 +20,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.mypractice.springreactive.document.Item;
 
-import static com.mypractice.springreactive.cons.ItemConstant.GET_ALL_ITEM;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 /**
  * @author nasru
@@ -47,5 +50,31 @@ public class ItemControllerTest {
 				.consumeWith((res)->{
 					res.getResponseBody().forEach(item->assertTrue(item.getId() != null));
 				});
+	}
+	
+	@Test
+	public void getAllItemsApproch1() {
+	Flux<Item> items=	webClient.get().uri(GET_ALL_ITEM).exchange().expectStatus().isOk().expectHeader()
+				.contentType(MediaType.APPLICATION_JSON_UTF8).returnResult(Item.class).getResponseBody();
+	StepVerifier.create(items.log("value from network :"))
+				.expectSubscription()
+				.expectNextCount(4)
+				.verifyComplete();
+	}
+	@Test
+	public void getItemById() {
+	  webClient.get().uri(GET_ALL_ITEM.concat("/{id}"), "SFK")
+		.exchange()
+		.expectStatus()
+		.isOk().expectBody().jsonPath("$.price", 100.0);	
+		}
+	
+	public void saveItem() {
+		Item item = new Item("NSK", "LG",6000.0 );
+		webClient.post().uri(GET_ALL_ITEM.concat("/{save}")).contentType(MediaType.APPLICATION_JSON_UTF8)
+		.body(Mono.just(item),Item.class)
+		.exchange().expectStatus().isCreated().expectBody().jsonPath("$.id").isNotEmpty()
+		.jsonPath("$.description").isEqualTo("LG")
+		.jsonPath("$.price").isEqualTo(6000.0);
 	}
 }

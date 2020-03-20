@@ -28,14 +28,14 @@ private ItemReactiveRepository itemReactiveRepository;
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		initialData();
+		//initialData();
 	}
 
 	/**
 	 * 
 	 */
 	public List<Item> data(){
-		return Arrays.asList( new Item(null, "VIVO", 50000.00), 
+		return Arrays.asList( new Item("SFK", "VIVO", 50000.00), 
 				 new Item(null, "MI", 50000.00),
 				 new Item(null, "SAMSUNG", 50000.00),
 				 new Item(null, "APPLE", 50000.00));
