@@ -10,5 +10,8 @@ package com.mypractice.springreactive.cons;
  *
  */
 public class ItemConstant {
-public static final String GET_ALL_ITEM ="/items";
+	public static final String GET_ALL_ITEM = "/items";
+	public static final String GET_ID = "/{id}";
+	public static final String SAVE = "/{save}";
+	public static final String GET_ALL_FUN_ITEM = "/fun/items";
 }

@@ -19,14 +19,12 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class RequestHandlerFunction {
-	public Mono<ServerResponse> flux(ServerRequest serverRequest){
-		return  ServerResponse.ok()
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(Flux.just(1,2,3).log(),  Integer.class);
+	public Mono<ServerResponse> flux(ServerRequest serverRequest) {
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Flux.just(1, 2, 3).log(),
+				Integer.class);
 	}
-	public Mono<ServerResponse> mono(ServerRequest serverRequest){
-		return  ServerResponse.ok()
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(Mono.just(1).log(),  Integer.class);
+
+	public Mono<ServerResponse> mono(ServerRequest serverRequest) {
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(1).log(), Integer.class);
 	}
 }

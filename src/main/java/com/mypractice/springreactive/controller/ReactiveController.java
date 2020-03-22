@@ -22,15 +22,17 @@ import reactor.core.publisher.Mono;
 public class ReactiveController {
 
 	@GetMapping("/flux")
-	public Flux<Integer> returnFlux(){
-		return Flux.just(1,2,3,4,5,6).log();
+	public Flux<Integer> returnFlux() {
+		return Flux.just(1, 2, 3, 4, 5, 6).log();
 	}
-	@GetMapping(value="/fluxstream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-	public Flux<Long> returnFluxStream(){
+
+	@GetMapping(value = "/fluxstream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	public Flux<Long> returnFluxStream() {
 		return Flux.interval(Duration.ofSeconds(1)).log();
 	}
+
 	@GetMapping("/mono")
-	public Mono<Integer> returnMono(){
+	public Mono<Integer> returnMono() {
 		return Mono.just(1).log();
 	}
 }

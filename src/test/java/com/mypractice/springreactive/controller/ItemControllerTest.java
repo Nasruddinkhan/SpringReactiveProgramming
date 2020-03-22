@@ -68,13 +68,12 @@ public class ItemControllerTest {
 		.expectStatus()
 		.isOk().expectBody().jsonPath("$.price", 100.0);	
 		}
-	
+	@Test
 	public void saveItem() {
-		Item item = new Item("NSK", "LG",6000.0 );
+		Item item = new Item(null, "LG",6000.0 );
 		webClient.post().uri(GET_ALL_ITEM.concat("/{save}")).contentType(MediaType.APPLICATION_JSON_UTF8)
 		.body(Mono.just(item),Item.class)
-		.exchange().expectStatus().isCreated().expectBody().jsonPath("$.id").isNotEmpty()
-		.jsonPath("$.description").isEqualTo("LG")
-		.jsonPath("$.price").isEqualTo(6000.0);
+		.exchange().expectStatus().isCreated().expectBody().jsonPath("$.id").isNotEmpty();
+	
 	}
 }

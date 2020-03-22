@@ -16,6 +16,7 @@ import com.mypractice.springreactive.handler.RequestHandlerFunction;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+
 /**
  * @author nasru
  *
@@ -23,8 +24,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration
 public class RequestRoutingConfig {
 	@Bean
-	public RouterFunction<ServerResponse> route(RequestHandlerFunction requestHandlerFunction){
-		return RouterFunctions.route(GET("/funtional/flux").and(accept(MediaType.APPLICATION_JSON)), requestHandlerFunction::flux)
+	public RouterFunction<ServerResponse> route(RequestHandlerFunction requestHandlerFunction) {
+		return RouterFunctions
+				.route(GET("/funtional/flux").and(accept(MediaType.APPLICATION_JSON)), requestHandlerFunction::flux)
 				.andRoute(GET("/funtional/mono").and(accept(MediaType.APPLICATION_JSON)), requestHandlerFunction::mono);
 	}
 }
