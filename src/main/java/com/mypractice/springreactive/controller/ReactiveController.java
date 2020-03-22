@@ -35,4 +35,6 @@ public class ReactiveController {
 	public Mono<Integer> returnMono() {
 		return Mono.just(1).log();
 	}
+	
+	
 }
