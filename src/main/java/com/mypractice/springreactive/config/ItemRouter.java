@@ -5,15 +5,16 @@
  */
 package com.mypractice.springreactive.config;
 
+import static com.mypractice.springreactive.cons.ItemConstant.FUN_RUNTIME_EXCEPTION;
 import static com.mypractice.springreactive.cons.ItemConstant.GET_ALL_FUN_ITEM;
 import static com.mypractice.springreactive.cons.ItemConstant.GET_ID;
 import static com.mypractice.springreactive.cons.ItemConstant.SAVE;
-
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
-import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -42,5 +43,9 @@ public class ItemRouter {
 						itemHandler::deleteOneItem)
 				.andRoute(PUT(GET_ALL_FUN_ITEM + GET_ID).and(accept(MediaType.APPLICATION_JSON)),
 						itemHandler::updateItem);
+	}
+	@Bean
+	public RouterFunction<ServerResponse> errorRoute(ItemHandler itemHandler){
+		return RouterFunctions.route(GET( FUN_RUNTIME_EXCEPTION).and(accept(MediaType.APPLICATION_JSON)), itemHandler::itemExpectionHandler);
 	}
 }

@@ -71,4 +71,8 @@ public class ItemHandler {
 				.flatMap(item -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(fromObject(item)))
 				.switchIfEmpty(notFound);
 	}
+	public Mono<ServerResponse> itemExpectionHandler(ServerRequest request){
+		System.out.println("ItemHandler.itemExpectionHandler()");;
+		return Mono.error( new RuntimeException("Runtime error occured@@@@@@@@@"));
+	}
 }

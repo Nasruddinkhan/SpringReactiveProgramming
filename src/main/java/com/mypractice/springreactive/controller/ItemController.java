@@ -7,6 +7,7 @@ package com.mypractice.springreactive.controller;
 
 import static com.mypractice.springreactive.cons.ItemConstant.GET_ALL_ITEM;
 import static com.mypractice.springreactive.cons.ItemConstant.GET_ID;
+import static com.mypractice.springreactive.cons.ItemConstant.RUNTIME_EXCEPTION;
 import static com.mypractice.springreactive.cons.ItemConstant.SAVE;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import reactor.core.publisher.Mono;
  */
 @RestController
 public class ItemController {
+	
 	@Autowired
 	ItemReactiveRepository itemReactiveRepository;
 
@@ -66,5 +68,10 @@ public class ItemController {
 			return itemReactiveRepository.save(itm);
 		}).map(updateItm -> new ResponseEntity<>(updateItm, HttpStatus.OK))
 				.defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+	@GetMapping(GET_ALL_ITEM+RUNTIME_EXCEPTION)
+	public Flux<Item> runtimeException(){
+		System.out.println("ItemController.runtimeException()");;
+		return itemReactiveRepository.findAll().concatWith(Mono.error(new RuntimeException("Runtime Exception is occured :::::::")));
 	}
 }
