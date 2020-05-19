@@ -4,7 +4,7 @@
  * Mar 20, 2020
  */
 package com.mypractice.springreactive.controller;
-
+import static com.mypractice.springreactive.cons.ItemConstant.SAVE;
 import static com.mypractice.springreactive.cons.ItemConstant.GET_ALL_ITEM;
 import static org.junit.Assert.assertTrue;
 
@@ -66,12 +66,12 @@ public class ItemControllerTest {
 	  webClient.get().uri(GET_ALL_ITEM.concat("/{id}"), "SFK")
 		.exchange()
 		.expectStatus()
-		.isOk().expectBody().jsonPath("$.price", 100.0);	
+		.isOk().expectBody().jsonPath("$.price", 50000.0);	
 		}
 	@Test
 	public void saveItem() {
 		Item item = new Item(null, "LG",6000.0 );
-		webClient.post().uri(GET_ALL_ITEM.concat("/{save}")).contentType(MediaType.APPLICATION_JSON_UTF8)
+		webClient.post().uri(GET_ALL_ITEM+SAVE).contentType(MediaType.APPLICATION_JSON_UTF8)
 		.body(Mono.just(item),Item.class)
 		.exchange().expectStatus().isCreated().expectBody().jsonPath("$.id").isNotEmpty();
 	

@@ -52,6 +52,7 @@ public class ItemController {
 	@PostMapping(GET_ALL_ITEM + SAVE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Mono<Item> createdItem(@RequestBody Item item) {
+		System.out.println("ItemController.createdItem() item ["+item+"]");
 		return itemReactiveRepository.save(item);
 	}
 

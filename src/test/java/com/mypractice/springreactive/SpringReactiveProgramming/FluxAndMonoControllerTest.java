@@ -55,10 +55,10 @@ public class FluxAndMonoControllerTest {
 	@Test
 	public void fluxApprocah2() {
 		webTestClient.get().uri("/flux")
-		.accept(MediaType.APPLICATION_JSON_UTF8)
+		//.accept(MediaType.APPLICATION_JSON_UTF8)
 		.exchange()
 		.expectStatus().isOk()
-		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+		//.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
 		.expectBodyList(Integer.class)
 		.hasSize(6);
 	}

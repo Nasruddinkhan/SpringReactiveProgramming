@@ -25,10 +25,12 @@ import reactor.core.publisher.Flux;
 public class ItemDataInitializer implements CommandLineRunner {
 @Autowired
 private ItemReactiveRepository itemReactiveRepository;
+
+
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		//initialData();
+		initialData();
 	}
 
 	/**

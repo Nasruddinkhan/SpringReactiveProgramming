@@ -54,9 +54,9 @@ public class FunctionalGlobalErrorHandling extends AbstractErrorWebExceptionHand
 		return RouterFunctions.route(all(), this::renderErrorResponse) ;
 	}
 	public Mono<ServerResponse>  renderErrorResponse(ServerRequest request){
-	Map<String, Object> errMap=	getErrorAttributes(request, false);
-	log.info("errMap :"+errMap);	
-	return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON)
-			.body(BodyInserters.fromObject(errMap));
+		Map<String, Object> errMap=	getErrorAttributes(request, false);
+		log.info("errMap :"+errMap);	
+		return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON)
+				.body(BodyInserters.fromObject(errMap));
 	}
 }
